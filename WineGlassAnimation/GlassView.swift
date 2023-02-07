@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct GlassView: View {
+    var scale: CGFloat = 1
     @Binding var drinkPercentage: Double
     @Binding var colorOfDrink: Color
     @Binding var colorOfGlass: Color
@@ -15,26 +16,29 @@ struct GlassView: View {
     @State private var waveOffset = Angle(degrees: 0)
     
     var body: some View {
-        ZStack(alignment: .center) {
-            backgroundColor.ignoresSafeArea()
-            Circle()
-                .fill(colorOfGlass)
-                .rotation3DEffect(.degrees(87), axis: (x: 1, y: 0, z: 0))
-                .frame(width: 85, alignment: .bottom)
-                .offset(y: 50)
-            RoundedRectangle(cornerRadius: 2)
-                .fill(colorOfGlass)
-                .frame(width: 6, height: 100)
-            Glass()
-                .fill(colorOfGlass)
-                .overlay(
-                    Wave(offset: Angle(degrees: self.waveOffset.degrees),
-                         percent: Double(drinkPercentage)/100)
-                    .fill(colorOfDrink)
-                    .clipShape(Glass())
-                )
-                .frame(width: 100, height: 150)
-                .offset(y: -100)
+        VStack {
+            ZStack(alignment: .center) {
+                backgroundColor.ignoresSafeArea()
+                Circle()
+                    .fill(colorOfGlass)
+                    .rotation3DEffect(.degrees(87), axis: (x: 1, y: 0, z: 0))
+                    .frame(width: 85, alignment: .bottom)
+                    .offset(y: 50)
+                RoundedRectangle(cornerRadius: 2)
+                    .fill(colorOfGlass)
+                    .frame(width: 6, height: 100)
+                Glass()
+                    .fill(colorOfGlass)
+                    .overlay(
+                        Wave(offset: Angle(degrees: self.waveOffset.degrees),
+                             percent: Double(drinkPercentage)/100)
+                        .fill(colorOfDrink)
+                        .clipShape(Glass())
+                    )
+                    .frame(width: 100, height: 150)
+                    .offset(y: -100)
+            }
+            .scaleEffect(scale)
         }
         .onAppear {
             withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: false)) {
