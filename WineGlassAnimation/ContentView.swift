@@ -2,20 +2,30 @@
 //  ContentView.swift
 //  WineGlassAnimation
 //
-//  Created by Ангелина Шаманова on 7.2.23..
+//  Created by Angelina Shamanova on 7.2.23..
 //
 
 import SwiftUI
 
 struct ContentView: View {
+    @State private var drinkPercentage = 66.0
+    @State private var colorOfDrink: Color = .pink.opacity(0.6)
+    @State private var colorOfGlass: Color = .white
+    @State private var backgroundColor: Color = .black
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            GlassView(drinkPercentage: $drinkPercentage,
+                      colorOfDrink: $colorOfDrink,
+                      colorOfGlass: $colorOfGlass,
+                      backgroundColor: $backgroundColor)
+            Slider(value: self.$drinkPercentage, in: 0...100)
+                .tint(colorOfDrink)
+                .padding(50)
         }
-        .padding()
+        .padding(.all)
+        .ignoresSafeArea()
+        .background(backgroundColor)
     }
 }
 

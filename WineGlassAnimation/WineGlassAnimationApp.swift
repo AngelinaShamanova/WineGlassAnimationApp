@@ -2,7 +2,7 @@
 //  WineGlassAnimationApp.swift
 //  WineGlassAnimation
 //
-//  Created by Ангелина Шаманова on 7.2.23..
+//  Created by Angelina Shamanova on 7.2.23..
 //
 
 import SwiftUI
